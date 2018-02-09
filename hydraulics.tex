@@ -61,11 +61,9 @@ g_c = g_{c,max}\cdot h\left(\psi_{leaf}\right)
 
 \begin{equation}
 h\left(\psi_{leaf}\right) = 
-\begin{cases}
-1 & \psi_{leaf}<p_c \\
-1-\left(p_c - \psi_{leaf}\right)^n & p_c-1<\psi_{leaf}<p_c \\
-0 & \psi_{leaf} \leq p_c-1
-\end{cases}
+\dfrac{1}{
+1+\left(\dfrac{\psi_{leaf}}{p_{50}}\right)^a
+}
 \end{equation}
 
 
