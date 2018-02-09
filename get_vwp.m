@@ -17,6 +17,13 @@ ga    = pen(5);
 grav  = z*9.8e-3;
 step  = 0.5;
 pleaf = psoil;
+f   = (0.5*(psoil+pleaf)-p2)/(p1-p2);
+
+if f<0.01
+    q1 = 0;
+    pleaf = psoil-grav;
+    gsw = 0;
+else
 
 go = 1;
 ct = 0;
@@ -25,7 +32,7 @@ while go
     pleaf = pleaf-step;
     ct = ct+1;
     
-    f   = (0.5*(psoil+pleaf)-p2)/(p1-p2);
+    f   = min(1,max(0,(0.5*(psoil+pleaf)-p2)/(p1-p2)));
     q1  = kmax/z*f*(psoil-pleaf-grav);
     
     h   = 1/(1+(pleaf/p50)^a);
@@ -33,19 +40,26 @@ while go
     q2  = penman(R,rh,T,gsw,ga);
     
     if ct>50
-        'vwp not converging'
-        q1 = -1;
         go = 0;
+        if f<0.01
+            'small f'
+            q1 = 0;
+            gsw = 0;
+        else
+            'vwp not converging'
+            q1 = -1;
+            
+        end
     end
     
     if abs(q1-q2)<1e-9
         go = 0;
-    elseif q1>q2
+    elseif q1>q2||f==0
         pleaf = pleaf+step;
         step  = step/2.7;
     end
   
 end
-
+end
 
 end

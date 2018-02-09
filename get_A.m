@@ -1,5 +1,5 @@
-function  A2=get_A(gsc_mol)
-    j = 125;
+function  A2=get_A(j,gsc_mol)
+
     gam = 50;
     Ca = 400  ; %ppmv
 

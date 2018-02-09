@@ -26,7 +26,7 @@ function q = penman(R,rh,T,gs,ga)
     dq = eps*vpd/P;
 
     le = (d/g*R+rho*lv*ga*dq)/(1+d/g+ga/gs);
-    q  = le/lv;
+    q  = le/lv; %mm/s
 
 
 end

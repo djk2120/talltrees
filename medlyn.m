@@ -1,4 +1,4 @@
-function gs= medlyn(vpd)
+function gs= medlyn(vpd,j)
     %vpd in kPa
     
     g0  = .001       ; % mol / m2 / s
@@ -14,7 +14,7 @@ function gs= medlyn(vpd)
         ct = ct+1;
 
         gs = g0 + (1+g1/vpd^(0.5))*oldA/Ca  ; %mol/m2/s
-        A  = get_A(gs);
+        A  = get_A(j,gs);
 
         if abs(A-oldA)<.0001
             go=0;
