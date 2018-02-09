@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{ {/Users/kennedy/Desktop} }
+\usepackage[margin=1in]{geometry}
+\usepackage[parfill]{parskip}  
+\title{Simple Plant Hydraulics \large \\ model development and implementation}
+\author{Daniel Kennedy - djk2120@columbia.edu \\ Pierre Gentine - pg2328@columbia.edu}
+
+
+\begin{document}
+\maketitle
+
+Recipe
+
+1. Solve for maximum stomatal conductance based on the Medlyn model (involves iterating for intercellular CO$_2$).
+
+2. Solve for the vegetation water potential (and associated stomatal conductance) that matches plant water supply with Penman-Monteith demand.
+
+3. Calculate the photosynthesis based on the stomatal conductance solution (involves iterating for intercellular CO$_2$).
+
+
+
+
+
+Plant Water Supply Equations
+
+\begin{equation}
+q = \int_{\psi_{soil}}^{\psi_{leaf}}{\dfrac{K\left(\psi\right)}{z}d\psi}
+\end{equation}
+
+\begin{equation}
+K(\psi) = \dfrac{\psi - p_2}{p_1 - p_2} \cdot K_{max}
+\end{equation}
+
+\begin{equation}
+q = \dfrac{K_{max}}{z}\cdot f\left(\psi\right) \cdot \left(\psi_{soil}-\psi_{leaf}-\rho g z\right)
+\end{equation}
+
+\begin{equation}
+f\left(\psi\right) = \dfrac{\dfrac{1}{2} \left(\psi_{soil}+\psi_{leaf}\right) - p_2}{p_1 - p_2}
+\end{equation}
+
+Plant Water Demand Equations
+
+\begin{equation}
+g_{c,max} = g_0 + \left(1+\dfrac{g_1}{\sqrt{D}}\right)\dfrac{A}{C_a}
+\end{equation}
+
+\begin{equation}
+C_i = C_a - \dfrac{A}{g_c}
+\end{equation}
+
+\begin{equation}
+A = \dfrac{j/4\left(C_i-\Gamma\right)}{C_i+2\Gamma}
+\end{equation}
+
+\begin{equation}
+g_c = g_{c,max}\cdot h\left(\psi_{leaf}\right)
+\end{equation}
+
+\begin{equation}
+h\left(\psi_{leaf}\right) = 
+\begin{cases}
+1 & \psi_{leaf}<p_c \\
+1-\left(p_c - \psi_{leaf}\right)^n & p_c-1<\psi_{leaf}<p_c \\
+0 & \psi_{leaf} \leq p_c-1
+\end{cases}
+\end{equation}
+
+
+\begin{equation}
+g_w = 1.6g_c
+\end{equation}
+
+\begin{equation}
+E = \dfrac{\dfrac{\Delta}{\gamma}\left(R_{net}-G\right)+\rho L_v g_a dq}
+{L_v\left(1+\dfrac{\Delta}{\gamma}+\dfrac{g_a}{g_w}\right)}
+\end{equation}
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
