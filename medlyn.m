@@ -16,7 +16,7 @@ function gs= medlyn(vpd,j)
         gs = g0 + (1+g1/vpd^(0.5))*oldA/Ca  ; %mol/m2/s
         A  = get_A(j,gs);
 
-        if abs(A-oldA)<.0001
+        if abs(A-oldA)<.001
             go=0;
         else
             oldA=A;
