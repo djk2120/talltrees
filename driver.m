@@ -1,7 +1,54 @@
-clear
+%clear
 close all
 
-rr = [1];
+rr = [0,1];
+% 1 = example drydown
+% 2 = vary height/kmax (rooting constant)
+
+
+if rr(2)>0
+    
+    kmax  = 4e-3;
+    z     = 20;
+    zr    = 3;
+    p1    = -1;
+    p2    = -4;
+    p50   = -1.6;
+    a     = 7;
+    
+    
+    kvals = linspace(1e-3,5e-3,100);
+    zvals = linspace(15,40,100);
+    if 1==2
+    out1 = zeros(100,100);
+    out2 = zeros(100,100);
+    
+    for i=1:100
+        disp(i)
+        for j=1:100
+            param = [kvals(i),zvals(j),p1,p2,p50,a];
+            %experiment
+            psoil = -0.2;
+            dmax  = 60;
+            x=zeros(48*dmax,4);
+            for dd=1:dmax
+                [out,psoil] = oneday(psoil,param,zr);
+                x((1:48)+48*(dd-1),:)=out;
+            end
+            Amax = mean(x(1:48,4));
+            Amin = mean(x(end-(47:-1:0),4));
+            
+            out1(i,j)=Amax;
+            out2(i,j)=Amin;
+        end
+    end
+    end    
+            
+    imagesc(kvals,zvals,out2./out1)
+    colorbar
+end
+
+
 
 if rr(1)>0
     %parameter setup
