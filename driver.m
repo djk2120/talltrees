@@ -1,9 +1,97 @@
 %clear
 close all
 
-rr = [0,1];
-% 1 = example drydown
+rr = [0,0,1];
+% 1 = example drydown, plot timeseries
 % 2 = vary height/kmax (rooting constant)
+% 3 = example drydown, plot psi_l vs. psi_s
+
+
+if rr(3) > 0
+    %parameter setup1
+    kmax  = 2e-3;
+    z     = 15;
+    zr    = 3;
+    p1    = -1;
+    p2    = -4;
+    p50   = -1.5;
+    a     = 7;
+    param = [kmax,z,p1,p2,p50,a];
+    
+    %experiment1
+    psoil = -0.2;
+    x=[];
+    for day=1:60
+        [out,psoil] = oneday(psoil,param,zr);
+        x = [x;out];
+    end
+    
+    %parameter setup2
+    kmax  = 2e-3;
+    z     = 40;
+    zr    = 4;
+    p1    = -1;
+    p2    = -4;
+    p50   = -2.5;
+    a     = 7;
+    param = [kmax,z,p1,p2,p50,a];
+    
+    %experiment2
+    psoil = -0.2;
+    y=[];
+    for day=1:60
+        [out,psoil] = oneday(psoil,param,zr);
+        y = [y;out];
+    end
+
+    xdk = figure;
+    subplot(1,2,1)
+    plot(x(:,1),x(:,2),'.')
+    hold on
+    
+    xlim([-1.1,0])
+    ylim([-2,0])
+    subplot(1,2,2)
+    plot(y(:,1),y(:,2),'.')
+    xlim([-1,0])
+    ylim([-4,0])
+    
+    xdk.Units = 'inches';
+    xdk.Position = [10,6,9,5];
+    xdk.PaperSize = [7,3];
+    xdk.PaperPosition = [0,0,7,3];
+    
+    figure
+    plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
+    hold on
+    plot(y(25:48:end,1),y(25:48:end,2)-y(25,2),'.')    
+    xlabel('soil potential')
+    ylabel('psileaf - psileaf_0')
+    title('midday water potential')
+    legend({'short','tall'})
+    
+    figure
+    subplot(1,2,1)
+    plot(0.5:0.5:24,x(1:48,4))
+    hold on
+    plot(0.5:0.5:24,y(1:48,4))
+    title('Day1')
+    xlabel('hour')
+    ylabel('GPP')
+    set(gca,'xtick',0:6:24)
+    subplot(1,2,2)
+    plot(0.5:0.5:24,x(end-47:end,4))
+    hold on
+    plot(0.5:0.5:24,y(end-47:end,4))
+    title('Day60')
+    legend({'short','tall'})
+    set(gca,'xtick',0:6:24)
+    ylim([0,25])
+    xlabel('hour')
+    ylabel('GPP')
+
+end
+
 
 
 if rr(2)>0
@@ -45,7 +133,10 @@ if rr(2)>0
     end    
             
     imagesc(kvals,zvals,out2./out1)
-    colorbar
+    xlabel('kmax')
+    ylabel('tree height')
+    h = colorbar;
+    ylabel(h,'% of max GPP')
 end
 
 
