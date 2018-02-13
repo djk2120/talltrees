@@ -67,7 +67,7 @@ if rr(3) > 0
     xdk.Position = [2,2,7,3];
     xdk.PaperSize = [7,3];
     xdk.PaperPosition = [0,0,7,3];
-    print(xdk,'fig2a','-dpdf')
+    print(xdk,'figs/fig2a','-dpdf')
     
     xdk2 = figure;
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
@@ -81,7 +81,7 @@ if rr(3) > 0
     xdk2.Position = [2,2,4,3];
     xdk2.PaperSize = [4,3];
     xdk2.PaperPosition = [0,0,4,3];
-    print(xdk2,'fig2b','-dpdf')
+    print(xdk2,'figs/fig2b','-dpdf')
     
     
     xdk3=figure;
@@ -109,7 +109,7 @@ if rr(3) > 0
     xdk3.Position = [2,2,7,3];
     xdk3.PaperSize = [7,3];
     xdk3.PaperPosition = [0,0,7,3];
-    print(xdk3,'fig2c','-dpdf')
+    print(xdk3,'figs/fig2c','-dpdf')
 
 end
 
