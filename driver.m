@@ -109,7 +109,7 @@ if rr(3) > 0
     xdk3.Position = [2,2,7,3];
     xdk3.PaperSize = [7,3];
     xdk3.PaperPosition = [0,0,7,3];
-    print(xdk,'fig2c','-dpdf')
+    print(xdk3,'fig2c','-dpdf')
 
 end
 
