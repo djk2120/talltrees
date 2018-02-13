@@ -1,5 +1,10 @@
 function gs= medlyn(vpd,j)
-    %vpd in kPa
+    %medlyn, solves for medlyn stomatal conductance
+    %   returns
+    %    gs, stomatal conductance [mol/ms/s]
+    %   inputs
+    %    vpd, [kPa]
+    %    j,   [umol/m2/s]
     
     g0  = .001       ; % mol / m2 / s
     g1  = 5       ; % kPa ^ 0.5 

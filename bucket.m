@@ -1,6 +1,9 @@
 function psoil1 = bucket( psoil0,q,zr )
-%UNTITLED6 Summary of this function goes here
-%   Detailed explanation goes here
+%bucket Simplified bucket model
+%   inputs
+%     psoil0, original soil water potential [MPa]
+%     q     , ET                            [mm/s]
+%     zr    , rooting depth                 [m]
 
 q  = q/1e3;
 dt = 1800;

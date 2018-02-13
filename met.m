@@ -1,11 +1,10 @@
 function [] = met(  )
-% create forcing
+% create forcing data
 
 R = linspace(0,2*pi,48);
 R = -2*cos(R);
 R(R<0) = 0;
 
-j = 50*R.^2;
 R = 150*R.^2;
 
 rh = 0.01*[87.1503,87.9342,88.7145,89.5901,...

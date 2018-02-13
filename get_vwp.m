@@ -1,4 +1,9 @@
 function [q1,pleaf,gsw] = get_vwp(psoil,param,pen)
+%get_vwp, solves for equilibrium leaf water potential
+%    returns
+%     q1   ,  attenuated ET , [mm/s]
+%     pleaf,  leaf potential, [MPa]
+%     gsw  ,  stomatal conductance (to water), [m/s]
 
 kmax  = param(1);
 z     = param(2);

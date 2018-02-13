@@ -1,4 +1,10 @@
 function  A2=get_A(j,gsc_mol)
+    %get_A, solves for photosynthesis a la Medlyn 2011 et al.
+    %   returns
+    %     A2, gross photosynthesis [umol/m2/s]
+    %   inputs
+    %     j, [umol/m2/s]
+    %     gsc_mol, stomatal conductance to CO2 [mol/m2/s]
 
     gam = 50;
     Ca = 400  ; %ppmv

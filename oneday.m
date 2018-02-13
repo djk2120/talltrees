@@ -1,6 +1,14 @@
 function [out,psoil] = oneday( psoil,param,zr )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%oneday Generates a one day simulation 
+%   returns half hourly data
+%    (:,1) psoil   [MPa]        psi soil
+%    (:,2) pleaf   [MPa]        psi leaf
+%    (:,3) q       [mm/s]       evapotranspiration
+%    (:,4) A       [umol/m2/s]  gross photosynthesis
+%   inputs are
+%     psoil [MPa]
+%     param [parameter vector]
+%     zr    [m]   root depth (for bucket)
 met()
 z   = param(2);
 out = zeros(48,4);

@@ -1,8 +1,10 @@
 function q = penman(R,rh,T,gs,ga)
+% penman, a function to calculate penman ET
     % R  = W/2
     % rh = [0,1]
     % T  = K
     % gs = m/s
+    % ga = m/s, default = 1/20
 
     if ga<0
         ga = 1/20;
