@@ -1,7 +1,7 @@
 %clear
 close all
 
-rr = [0,0,1];
+rr = [0,1,0];
 % 1 = example drydown, plot timeseries
 % 2 = vary height/kmax (rooting constant)
 % 3 = example drydown, tall vs. short plot psi_l vs. psi_s
@@ -67,7 +67,7 @@ if rr(3) > 0
     xdk.Position = [2,2,7,3];
     xdk.PaperSize = [7,3];
     xdk.PaperPosition = [0,0,7,3];
-    print(xdk,'figs/fig2a','-dpdf')
+    print(xdk,'figs/fig3a','-dpdf')
     
     xdk2 = figure;
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
@@ -81,7 +81,7 @@ if rr(3) > 0
     xdk2.Position = [2,2,4,3];
     xdk2.PaperSize = [4,3];
     xdk2.PaperPosition = [0,0,4,3];
-    print(xdk2,'figs/fig2b','-dpdf')
+    print(xdk2,'figs/fig3b','-dpdf')
     
     
     xdk3=figure;
@@ -109,7 +109,7 @@ if rr(3) > 0
     xdk3.Position = [2,2,7,3];
     xdk3.PaperSize = [7,3];
     xdk3.PaperPosition = [0,0,7,3];
-    print(xdk3,'figs/fig2c','-dpdf')
+    print(xdk3,'figs/fig3c','-dpdf')
 
 end
 
@@ -152,12 +152,21 @@ if rr(2)>0
         end
     end
     end    
-            
+     
+    xdk = figure;
     imagesc(kvals,zvals,out2./out1)
     xlabel('kmax')
     ylabel('tree height')
     h = colorbar;
-    ylabel(h,'% of max GPP')
+    ylabel(h,'% of day1 GPP')
+    title('60 day drydown')
+    
+    xdk.Units = 'inches';
+    xdk.Position = [2,2,4,3];
+    xdk.PaperSize = [4,3];
+    xdk.PaperPosition = [0,0,4,3];
+    print(xdk,'figs/fig2','-dpdf')
+    
 end
 
 
