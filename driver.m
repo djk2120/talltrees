@@ -4,7 +4,7 @@ close all
 rr = [0,0,1];
 % 1 = example drydown, plot timeseries
 % 2 = vary height/kmax (rooting constant)
-% 3 = example drydown, plot psi_l vs. psi_s
+% 3 = example drydown, tall vs. short plot psi_l vs. psi_s
 
 
 if rr(3) > 0
@@ -44,33 +44,47 @@ if rr(3) > 0
         y = [y;out];
     end
 
+    
+    %plotting
     xdk = figure;
     subplot(1,2,1)
     plot(x(:,1),x(:,2),'.')
     hold on
-    
+    xlabel('Soil Potential (MPa)')
+    ylabel('Leaf Potential (MPa)')
+    title('Short (15m)')
     xlim([-1.1,0])
     ylim([-2,0])
     subplot(1,2,2)
     plot(y(:,1),y(:,2),'.')
     xlim([-1,0])
-    ylim([-4,0])
+    ylim([-3.25,0])
+    xlabel('Soil Potential (MPa)')
+    ylabel('Leaf Potential (MPa)')
+    title('Tall (40m)')
     
     xdk.Units = 'inches';
-    xdk.Position = [10,6,9,5];
+    xdk.Position = [2,2,7,3];
     xdk.PaperSize = [7,3];
     xdk.PaperPosition = [0,0,7,3];
+    print(xdk,'fig2a','-dpdf')
     
-    figure
+    xdk2 = figure;
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
     hold on
     plot(y(25:48:end,1),y(25:48:end,2)-y(25,2),'.')    
-    xlabel('soil potential')
-    ylabel('psileaf - psileaf_0')
-    title('midday water potential')
-    legend({'short','tall'})
+    xlabel('Soil potential (MPa)')
+    ylabel('\psileaf - \psileaf_0 (MPa)')
+    title('Midday water potential')
+    legend({'short','tall'},'location','northwest')
+    xdk2.Units = 'inches';
+    xdk2.Position = [2,2,4,3];
+    xdk2.PaperSize = [4,3];
+    xdk2.PaperPosition = [0,0,4,3];
+    print(xdk2,'fig2b','-dpdf')
     
-    figure
+    
+    xdk3=figure;
     subplot(1,2,1)
     plot(0.5:0.5:24,x(1:48,4))
     hold on
@@ -89,6 +103,13 @@ if rr(3) > 0
     ylim([0,25])
     xlabel('hour')
     ylabel('GPP')
+    
+        
+    xdk3.Units = 'inches';
+    xdk3.Position = [2,2,7,3];
+    xdk3.PaperSize = [7,3];
+    xdk3.PaperPosition = [0,0,7,3];
+    print(xdk,'fig2c','-dpdf')
 
 end
 
