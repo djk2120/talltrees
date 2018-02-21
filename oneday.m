@@ -1,4 +1,4 @@
-function [out,psoil] = oneday( psoil,param,zr )
+function [out,psoil] = oneday( psoil_in,param,zr )
 %oneday Generates a one day simulation 
 %   returns half hourly data
 %    (:,1) psoil   [MPa]        psi soil
@@ -12,6 +12,9 @@ function [out,psoil] = oneday( psoil,param,zr )
 met()
 z   = param(2);
 out = zeros(48,4);
+
+psoil = psoil_in(1);
+
 for i=1:48
 R     = R48(i);
 j     = j48(i);
@@ -33,6 +36,7 @@ if j>0
 else
     A = 0;
     pleaf = psoil - z*9.8e-3;
+    gsw = gsw_max;
     q = penman(R,rh,T,gsw_max,-1);
 end
     
@@ -40,7 +44,13 @@ out(i,1) = psoil;
 out(i,2) = pleaf;
 out(i,3) = q;
 out(i,4) = A;
-psoil = bucket(psoil,q,zr);
+out(i,5) = gsw/gsw_max;
+
+if length(psoil_in)==1
+    psoil = bucket(psoil,q,zr);
+else
+    psoil=psoil_in(i);
+end
 
 end
 end
