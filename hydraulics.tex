@@ -94,6 +94,8 @@ E = q
 
 \subsection{Thread 1}
 
+Assume $\dfrac{dk}{d\psi}=0$
+
 \begin{equation}
 q = k\Delta{\psi}
 \end{equation}
@@ -101,8 +103,6 @@ q = k\Delta{\psi}
 \begin{equation}
 \Delta{\psi} = \psi_{soil}-\psi_{leaf}
 \end{equation}
-
-Assume $\dfrac{dk}{d\psi}=0$
 
 \begin{equation}
 q = k\left(\psi_{soil}-\psi_{leaf}\right)
@@ -120,7 +120,7 @@ q = k\left(\psi_{soil}-\psi_{leaf}\right)
 \dfrac{dq}{d\psi_{soil}} = k\left(1-\sigma \right)
 \end{equation}
 
-Use initial pressure drop and water flux to infer $k$:
+Use a reference pressure drop and water flux (e.g. Day 1 of drydown) to infer $k$:
 \begin{equation}
 \begin{aligned}
 k&=\dfrac{q}{\Delta{\psi}} \\
@@ -134,6 +134,19 @@ Then we have another way to express $\dfrac{dq}{d\psi}$
 \dfrac{dq}{d\psi_{soil}} = q_0\dfrac{\left(1-\sigma \right)}{\psi_{soil,0}-\psi_{leaf,0}}
 \end{equation}
 
+This shows that the loss of water supply depends is related to the absolute potential drop from soil-to-root.
+For taller trees, the potential drop from soil-to-root tends to be larger, whereby a given drop in soil potential due to drydown would have a smaller effect as compared to shorter trees.
+
+Likewise the effect of transpiration demand will be larger for taller trees, because for a given increase in transpiration demand ($dq$),
+the effect on the potential drop ($\Delta\psi$) will be larger, due to the smaller conductance.
+
+\begin{equation}
+\Delta\psi = \dfrac{q}{k}
+\end{equation}
+
+\begin{equation}
+\dfrac{d\Delta\psi}{dq} = \dfrac{1}{k} = \dfrac{\psi_{soil,0}-\psi_{leaf,0}}{q_0}
+\end{equation}
 
 
 

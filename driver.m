@@ -150,19 +150,27 @@ if rr(4)>0
     
     
     %comparing photosynthesis
-    e1s_d1  = sum(x(1:48,4))*1800/1e6*12  %gC/m2
-    e1t_d1  = sum(y(1:48,4))*1800/1e6*12  %gC/m2
-    e1s_d60 = sum(x(end-47:end,4))*1800/1e6*12  %gC/m2
-    e1t_d60 = sum(y(end-47:end,4))*1800/1e6*12  %gC/m2
-    e2t_d60 = sum(yy(end-47:end,4))*1800/1e6*12  %gC/m2
+    e1s_d1  = sum(x(1:48,4))*1800/1e6*12  ;%gC/m2
+    e1t_d1  = sum(y(1:48,4))*1800/1e6*12  ;%gC/m2
+    e1s_d60 = sum(x(end-47:end,4))*1800/1e6*12 ; %gC/m2
+    e1t_d60 = sum(y(end-47:end,4))*1800/1e6*12 ; %gC/m2
+    e2t_d60 = sum(yy(end-47:end,4))*1800/1e6*12;  %gC/m2
     
     
-    e1s_d60/e1s_d1
-    e1t_d60/e1t_d1
-    e2t_d60/e1t_d1
+    e1s_d60/e1s_d1;
+    e1t_d60/e1t_d1;
+    e2t_d60/e1t_d1;
     
+    %calculating drops
+    short_drop1  = min(x(1:48,2))-max(x(1:48,2))
+    short_drop60 = min(x(end-47:end,2))-max(x(end-47:end,2))
+    ddrop_s      = short_drop60-short_drop1
+    ddrop_s/short_drop1
     
-    
+    tall_drop1   = min(yy(1:48,2))-max(yy(1:48,2))
+    tall_drop60  = min(yy(end-47:end,2))-max(yy(end-47:end,2))
+    ddrop_t      = tall_drop60-tall_drop1
+    ddrop_t/tall_drop1
     
     %plotting
     
