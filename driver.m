@@ -10,8 +10,8 @@ rr = [0,0,1,1];
 
 if rr(3) > 0
     %parameter setup1
-    kmax  = 4e-3;
-    kmax_other_units = kmax*1e6/18;
+    kmax_other_units = 220;
+    kmax  = kmax_other_units/1e6*18;
     kmax_kg          = kmax_other_units*18/1000/1000;
     
     z     = 15;
@@ -31,7 +31,7 @@ if rr(3) > 0
     end
     
     %parameter setup2
-    kmax  = 4e-3;
+    kmax  = kmax_other_units/1e6*18;
     z     = 40;
     zr    = 4;
     p1    = -1;
@@ -47,7 +47,7 @@ if rr(3) > 0
         [out,psoil] = oneday(psoil,param,zr);
         y = [y;out];
     end
-
+    
     
     %plotting
     xdk = figure;
@@ -78,7 +78,7 @@ if rr(3) > 0
     xdk2 = figure;
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
     hold on
-    plot(y(25:48:end,1),y(25:48:end,2)-y(25,2),'.')    
+    plot(y(25:48:end,1),y(25:48:end,2)-y(25,2),'.')
     xlabel('Soil potential (MPa)')
     ylabel('\psileaf - \psileaf_0 (MPa)')
     title('Midday water potential')
@@ -88,7 +88,7 @@ if rr(3) > 0
     xdk2.PaperSize = [4,3];
     xdk2.PaperPosition = [0,0,4,3];
     if rr(3)>1
-    print(xdk2,'figs/fig3b','-dpdf')
+        print(xdk2,'figs/fig3b','-dpdf')
     end
     
     xdk3=figure;
@@ -111,23 +111,23 @@ if rr(3) > 0
     xlabel('hour')
     ylabel('GPP')
     
-        
+    
     xdk3.Units = 'inches';
     xdk3.Position = [2,2,7,3];
     xdk3.PaperSize = [7,3];
     xdk3.PaperPosition = [0,0,7,3];
     if rr(3)>1
-    print(xdk3,'figs/fig3c','-dpdf')
+        print(xdk3,'figs/fig3c','-dpdf')
     end
     
-
+    
     
 end
 
 if rr(4)>0
-
+    
     %parameter setup2 (tall)
-    kmax  = 4e-3;
+    kmax  = kmax_other_units/1e6*18;
     z     = 40;
     zr    = 4;
     p1    = -1;
@@ -135,11 +135,11 @@ if rr(4)>0
     p50   = -2.5;
     a     = 6;
     param = [kmax,z,p1,p2,p50,a];
-
+    
     %psoil forcing from short-tree experiment above
     psoil_vals = x(:,1);
     
-
+    
     %experiment
     yy=[];
     for day=1:60
@@ -148,50 +148,67 @@ if rr(4)>0
         yy = [yy;out];
     end
     
+    
+    %comparing photosynthesis
+    e1s_d1  = sum(x(1:48,4))*1800/1e6*12  %gC/m2
+    e1t_d1  = sum(y(1:48,4))*1800/1e6*12  %gC/m2
+    e1s_d60 = sum(x(end-47:end,4))*1800/1e6*12  %gC/m2
+    e1t_d60 = sum(y(end-47:end,4))*1800/1e6*12  %gC/m2
+    e2t_d60 = sum(yy(end-47:end,4))*1800/1e6*12  %gC/m2
+    
+    
+    e1s_d60/e1s_d1
+    e1t_d60/e1t_d1
+    e2t_d60/e1t_d1
+    
+    
+    
+    
     %plotting
     
     xdk2 = figure;
     subplot(1,2,1)
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
     hold on
-    plot(y(25:48:end,1),y(25:48:end,2)-y(25,2),'.')    
+    plot(y(25:48:end,1),y(25:48:end,2)-y(25,2),'.')
     xlabel('Soil potential (MPa)')
     ylabel('Midday \psileaf - \psileaf_0 (MPa)')
-    title('Two buckets')
+    title('Experiment 1')
     legend({'short','tall'},'location','northwest')
     subplot(1,2,2)
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
     hold on
-    plot(yy(25:48:end,1),yy(25:48:end,2)-yy(25,2),'.')    
+    plot(yy(25:48:end,1),yy(25:48:end,2)-yy(25,2),'.')
     xlabel('Soil potential (MPa)')
-    title('Same soil moisture forcing')
+    title('Experiment 2')
     xdk2.Units = 'inches';
     xdk2.Position = [2,2,7,3];
     xdk2.PaperSize = [7,3];
     xdk2.PaperPosition = [0,0,7,3];
+    if rr(4)>1
     print(xdk2,'figs/fig4a','-dpdf')
-    
+    end
     
     xdk2 = figure;
     subplot(1,3,1)
     plot(0.5:0.5:24,x(1:48,4))
-    hold on        
+    hold on
     plot(0.5:0.5:24,y(1:48,4))
-        xlim([0,24])
-        xlabel('Hour')
-        ylabel('GPP (umol/m2/s)')
+    xlim([0,24])
+    xlabel('Hour')
+    ylabel('GPP (umol/m2/s)')
     set(gca,'xtick',0:6:24)
-    title('Day1 w/buckets')
+    title('Exp1, Day1')
     legend({'short','tall'},'location','southwest')
     subplot(1,3,2)
     plot(0.5:0.5:24,x(end-47:end,4))
     hold on
     plot(0.5:0.5:24,y(end-47:end,4))
     ylim([0,25])
-        xlim([0,24])
-        xlabel('Hour')
+    xlim([0,24])
+    xlabel('Hour')
     set(gca,'xtick',0:6:24)
-    title('Day60 w/buckets')
+    title('Exp1, Day60')
     subplot(1,3,3)
     plot(0.5:0.5:24,x(end-47:end,4))
     hold on
@@ -200,15 +217,16 @@ if rr(4)>0
     xlim([0,24])
     set(gca,'xtick',0:6:24)
     xlabel('Hour')
-    title('Day60 same soil')
+    title('Exp2, Day60')
     
     
     xdk2.Units = 'inches';
     xdk2.Position = [2,2,8,3];
     xdk2.PaperSize = [8,3];
     xdk2.PaperPosition = [0,0,8,3];
+    if rr(4)>1
     print(xdk2,'figs/fig4b','-dpdf')
-    
+    end
     
     xdk = figure;
     subplot(1,2,1)
@@ -216,11 +234,12 @@ if rr(4)>0
     hold on
     plot(0.5:0.5:24,x(end-47:end,2),'k-.','LineWidth',1.5)
     ylim([-3,0])
-        set(gca,'xtick',0:6:24)
-        xlabel('Hour')
-        ylabel('Leaf potential (MPa)')
-        title('Short z=15m')
-        legend('Day1','Day60','location','southeast')
+    set(gca,'xtick',0:6:24)
+    xlabel('Hour')
+    ylabel('Leaf potential (MPa)')
+    title('Short z=15m')
+    legend('Day1','Day60','location','southeast')
+    box off
     subplot(1,2,2)
     
     hold on
@@ -235,8 +254,11 @@ if rr(4)>0
     xdk.Position = [2,2,7,3];
     xdk.PaperSize = [7,3];
     xdk.PaperPosition = [0,0,7,3];
-    
+    if rr(4)>1
     print(xdk,'figs/fig4c','-dpdf')
+    end
+    
+
 end
 
 
@@ -254,30 +276,30 @@ if rr(2)>0
     kvals = linspace(1e-3,5e-3,100);
     zvals = linspace(15,40,100);
     if 1==2
-    out1 = zeros(100,100);
-    out2 = zeros(100,100);
-    
-    for i=1:100
-        disp(i)
-        for j=1:100
-            param = [kvals(i),zvals(j),p1,p2,p50,a];
-            %experiment
-            psoil = -0.2;
-            dmax  = 60;
-            x=zeros(48*dmax,4);
-            for dd=1:dmax
-                [out,psoil] = oneday(psoil,param,zr);
-                x((1:48)+48*(dd-1),:)=out;
+        out1 = zeros(100,100);
+        out2 = zeros(100,100);
+        
+        for i=1:100
+            disp(i)
+            for j=1:100
+                param = [kvals(i),zvals(j),p1,p2,p50,a];
+                %experiment
+                psoil = -0.2;
+                dmax  = 60;
+                x=zeros(48*dmax,4);
+                for dd=1:dmax
+                    [out,psoil] = oneday(psoil,param,zr);
+                    x((1:48)+48*(dd-1),:)=out;
+                end
+                Amax = mean(x(1:48,4));
+                Amin = mean(x(end-(47:-1:0),4));
+                
+                out1(i,j)=Amax;
+                out2(i,j)=Amin;
             end
-            Amax = mean(x(1:48,4));
-            Amin = mean(x(end-(47:-1:0),4));
-            
-            out1(i,j)=Amax;
-            out2(i,j)=Amin;
         end
     end
-    end    
-     
+    
     xdk = figure;
     imagesc(kvals,zvals,out2./out1)
     xlabel('kmax')

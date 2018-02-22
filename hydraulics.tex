@@ -82,70 +82,60 @@ E = \dfrac{\dfrac{\Delta}{\gamma}\left(R_{net}-G\right)+\rho L_v g_a dq}
 E = q
 \end{equation}
 
+\subsection{Bucket}
+
+\begin{equation}
+\theta_1 = \theta_0 - \dfrac{q\Delta t}{z_r}
+\end{equation}
+
 
 \newpage
 \section{Why are tall Amazonian forests more resistant to precipitation variability?}
 
 \subsection{Thread 1}
-Potential drop from soil-to-root is larger in tall trees. \\
-Variability in potential drop due caused by variability in VPD and APAR is larger in tall trees. \\
-As such the same variability in soil potential may ``feel'' smaller to taller trees \\
-
-$q$ and $k$ are the leaf area basis transpiration and hydraulic conductance respectively. \\
-Assume that tall trees and short trees have the same $q$.
 
 \begin{equation}
+q = k\Delta{\psi}
+\end{equation}
+
+\begin{equation}
+\Delta{\psi} = \psi_{soil}-\psi_{leaf}
+\end{equation}
+
+Assume $\dfrac{dk}{d\psi}=0$
+
+\begin{equation}
+q = k\left(\psi_{soil}-\psi_{leaf}\right)
+\end{equation}
+
+\begin{equation}
+\dfrac{dq}{d\psi_{soil}} = k\left(1-\dfrac{d\psi_{leaf}}{d\psi_{soil}} \right)
+\end{equation}
+
+\begin{equation}
+\sigma = \dfrac{d\psi_{leaf}}{d\psi_{soil}}
+\end{equation}
+
+\begin{equation}
+\dfrac{dq}{d\psi_{soil}} = k\left(1-\sigma \right)
+\end{equation}
+
+Use initial pressure drop and water flux to infer $k$:
+\begin{equation}
 \begin{aligned}
-q &= k_{tall}\Delta\psi_{tall}  \\
-q &= k_{short}\Delta\psi_{short}
+k&=\dfrac{q}{\Delta{\psi}} \\
+k&=\dfrac{q_0}{\psi_{soil,0}-\psi_{leaf,0}}
 \end{aligned}
 \end{equation}
 
-\begin{equation}
-\begin{aligned}
- k_{tall}    &= \dfrac{q}{\Delta\psi_{tall}}  \\
- k_{short} &= \dfrac{q}{\Delta\psi_{short}}
-\end{aligned}
-\end{equation}
-
-From the literature (need citation):
+Then we have another way to express $\dfrac{dq}{d\psi}$
 
 \begin{equation}
-\Delta\psi_{tall}>\Delta\psi_{short}
+\dfrac{dq}{d\psi_{soil}} = q_0\dfrac{\left(1-\sigma \right)}{\psi_{soil,0}-\psi_{leaf,0}}
 \end{equation}
 
-Therefore, we infer that:
 
-\begin{equation}
-k_{tall}<k_{short}
-\end{equation}
 
-This makes sense because conductances scale inversely with length. 
-The tall trees' longer conducting path is more resistive than shorter trees'.
-
-Now define $\delta\psi$ as the potential drop needed to satisfy an extra $\delta q$ of transpiration demand.
-
-\begin{equation}
-\delta q = k \delta\psi
-\end{equation}
-
-Given that $k_{tall}<k_{short}$, for a given $\delta q$
-
-\begin{equation}
-\delta\psi_{tall} > \delta\psi_{short}
-\end{equation}
-
-As a result, the variability in $\Delta\psi_{tall}$ will be larger than $\Delta\psi_{short}$
-given then same variability in transpiration demand (e.g. due to changes in VPD).
-
-\begin{equation}
-\psi_{leaf} = \psi_{soil} - \Delta\psi
-\end{equation}
-
-The variability in $\psi_{leaf}$ can be partitioned into the variability in $\psi_{soil}$ and the variability in $\Delta\psi$. 
-If the variability in $\Delta\psi$ is larger for tall trees compared to short trees, maybe the variability in $\psi_{soil}$ ``feels'' smaller,
-because it makes up a smaller portion of the total variability in $\psi_{leaf}$.
-This could partly explain why tall Amazonian forests are more resistant to precipitation variability and more susceptible to VPD.
 
 \subsection{Thread 2}
 Given the same precipitation sequence, soil potential variability is smaller for taller trees due to deeper roots, 
