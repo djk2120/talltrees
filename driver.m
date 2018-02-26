@@ -1,7 +1,7 @@
 %clear
 close all
 
-rr = [0,0,1,1];
+rr = [0,0,1,2];
 % 1 = example drydown, plot timeseries
 % 2 = vary height/kmax (rooting constant)
 % 3 = example drydown, tall vs. short plot psi_l vs. psi_s
@@ -82,7 +82,7 @@ if rr(3) > 0
     xlabel('Soil potential (MPa)')
     ylabel('\psileaf - \psileaf_0 (MPa)')
     title('Midday water potential')
-    legend({'short','tall'},'location','northwest')
+    legend({'short','tall'},'location','southeast')
     xdk2.Units = 'inches';
     xdk2.Position = [2,2,4,3];
     xdk2.PaperSize = [4,3];
@@ -182,11 +182,13 @@ if rr(4)>0
     xlabel('Soil potential (MPa)')
     ylabel('Midday \psileaf - \psileaf_0 (MPa)')
     title('Experiment 1')
-    legend({'short','tall'},'location','northwest')
+    legend({'short','tall'},'location','southeast')
+    text(-1.4,-0.1,'(a)','FontSize',14,'FontWeight','bold')
     subplot(1,2,2)
     plot(x(25:48:end,1),x(25:48:end,2)-x(25,2),'.')
     hold on
     plot(yy(25:48:end,1),yy(25:48:end,2)-yy(25,2),'.')
+    text(-1.4,-0.1,'(b)','FontSize',14,'FontWeight','bold')
     xlabel('Soil potential (MPa)')
     title('Experiment 2')
     xdk2.Units = 'inches';
@@ -207,11 +209,13 @@ if rr(4)>0
     ylabel('GPP (umol/m2/s)')
     set(gca,'xtick',0:6:24)
     title('Exp1, Day1')
+    text(1.5,23,'(a)','FontSize',14,'FontWeight','bold')
     legend({'short','tall'},'location','southwest')
     subplot(1,3,2)
     plot(0.5:0.5:24,x(end-47:end,4))
     hold on
     plot(0.5:0.5:24,y(end-47:end,4))
+    text(1.5,23,'(b)','FontSize',14,'FontWeight','bold')
     ylim([0,25])
     xlim([0,24])
     xlabel('Hour')
@@ -221,6 +225,7 @@ if rr(4)>0
     plot(0.5:0.5:24,x(end-47:end,4))
     hold on
     plot(0.5:0.5:24,yy(end-47:end,4))
+    text(1.5,23,'(c)','FontSize',14,'FontWeight','bold')
     ylim([0,25])
     xlim([0,24])
     set(gca,'xtick',0:6:24)
@@ -242,6 +247,7 @@ if rr(4)>0
     hold on
     plot(0.5:0.5:24,x(end-47:end,2),'k-.','LineWidth',1.5)
     ylim([-3,0])
+    text(1.5,-2.7,'(a)','FontSize',14,'FontWeight','bold')
     set(gca,'xtick',0:6:24)
     xlabel('Hour')
     ylabel('Leaf potential (MPa)')
@@ -254,6 +260,7 @@ if rr(4)>0
     plot(0.5:0.5:24,yy(1:48,2),'k','LineWidth',1.5)
     
     plot(0.5:0.5:24,yy(end-47:end,2),'k-.','LineWidth',1.5)
+    text(1.5,-2.7,'(b)','FontSize',14,'FontWeight','bold')
     ylim([-3,0])
     set(gca,'xtick',0:6:24)
     xlabel('Hour')
