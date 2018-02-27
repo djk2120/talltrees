@@ -1,7 +1,7 @@
 %clear
 close all
 
-rr = [0,0,0,0,2];
+rr = [0,0,0,0,0];
 % 1 = example drydown, plot timeseries
 % 2 = vary height/kmax (rooting constant)
 % 3 = example drydown, tall vs. short plot psi_l vs. psi_s
@@ -211,7 +211,7 @@ if rr(4)>0
     plot(0.5:0.5:24,y(1:48,4))
     xlim([0,24])
     xlabel('Hour')
-    ylabel('GPP (umol/m2/s)')
+    ylabel('GPP (\mu mol m^{-2} s^{-1})')
     set(gca,'xtick',0:6:24)
     title('Exp1, Day1')
     text(1.5,23,'(a)','FontSize',14,'FontWeight','bold')
