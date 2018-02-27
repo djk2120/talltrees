@@ -173,6 +173,10 @@ if rr(4)>0
     ddrop_t      = tall_drop60-tall_drop1
     ddrop_t/tall_drop1
     
+    %calculating anisohydricity
+    lm_short = fitlm(x(25:48:end,1),x(25:48:end,2));
+    lm_tall  = fitlm(yy(25:48:end,1),yy(25:48:end,2));
+    
     %plotting
     
     xdk2 = figure;
@@ -322,17 +326,19 @@ if rr(5)>0
         y3 = [y3;out];
     end
     
-    a = x3(24:48:end,4);
+    a = x3(25:48:end,4);
     a(end)-a(1)
-    a = y3(24:48:end,4);
+    (a(end)-a(1))/a(1)
+    a = y3(25:48:end,4);
     a(end)-a(1)
+    (a(end)-a(1))/a(1)
     
     xdk = figure;
-    plot(x3(24:48:end,5),x3(24:48:end,4),'.')
+    plot(x3(25:48:end,5),x3(25:48:end,4),'.')
     hold on
-    plot(y3(24:48:end,5),y3(24:48:end,4),'.')
-    ylim([20,24])
-    set(gca,'ytick',20:24)
+    plot(y3(25:48:end,5),y3(25:48:end,4),'.')
+    %ylim([20,24])
+    %set(gca,'ytick',20:24)
     xlim([1.6,4.1])
     xlabel('VPD (kPa)')
     ylabel('GPP (\mu mol m^{-2} s^{-1})')
