@@ -337,7 +337,7 @@ if rr(5)>0
     xlabel('VPD (kPa)')
     ylabel('GPP (\mu mol m^{-2} s^{-1})')
     title('Exp3: midday GPP vs. VPD')
-    legend({'Tall','Short'},'location','Southwest')
+    legend({'Short','Tall'},'location','Southwest')
     
     xdk.Units = 'inches';
     xdk.Position = [2,2,4,3];
