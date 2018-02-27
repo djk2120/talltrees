@@ -1,11 +1,12 @@
 %clear
 close all
 
-rr = [0,0,1,2];
+rr = [0,0,0,0,2];
 % 1 = example drydown, plot timeseries
 % 2 = vary height/kmax (rooting constant)
 % 3 = example drydown, tall vs. short plot psi_l vs. psi_s
 % 4 = re-run tall, with short soil moisture
+% 5 = also, increase VPD
 
 
 if rr(3) > 0
@@ -26,7 +27,7 @@ if rr(3) > 0
     psoil = -0.2;
     x=[];
     for day=1:60
-        [out,psoil] = oneday(psoil,param,zr);
+        [out,psoil] = oneday(psoil,param,zr,1);
         x = [x;out];
     end
     
@@ -44,7 +45,7 @@ if rr(3) > 0
     psoil = -0.2;
     y=[];
     for day=1:60
-        [out,psoil] = oneday(psoil,param,zr);
+        [out,psoil] = oneday(psoil,param,zr,1);
         y = [y;out];
     end
     
@@ -144,7 +145,7 @@ if rr(4)>0
     yy=[];
     for day=1:60
         psoil_in = psoil_vals((1:48)+48*(day-1));
-        [out,psoil] = oneday(psoil_in,param,zr);
+        [out,psoil] = oneday(psoil_in,param,zr,1);
         yy = [yy;out];
     end
     
@@ -277,6 +278,78 @@ if rr(4)>0
 end
 
 
+
+if rr(5)>0
+    
+    pp=-0.2
+    
+    %parameter setup1
+    kmax_other_units = 220;
+    kmax  = kmax_other_units/1e6*18;
+    kmax_kg          = kmax_other_units*18/1000/1000;
+    
+    z     = 15;
+    zr    = 3;
+    p1    = -1;
+    p2    = -4;
+    p50   = -1.5;
+    a     = 6;
+    param = [kmax,z,p1,p2,p50,a];
+    
+    %experiment3
+    psoil = pp*ones(2880,1);
+    x3=[];
+    for day=1:60
+        [out,p] = oneday(psoil,param,zr,day);
+        x3 = [x3;out];
+    end
+    
+    %parameter setup2
+    kmax  = kmax_other_units/1e6*18;
+    z     = 40;
+    zr    = 4;
+    p1    = -1;
+    p2    = -4;
+    p50   = -2.5;
+    a     = 6;
+    param = [kmax,z,p1,p2,p50,a];
+    
+    %experiment3
+    psoil = pp*ones(2880,1);
+    y3=[];
+    for day=1:60
+        [out,p] = oneday(psoil,param,zr,day);
+        y3 = [y3;out];
+    end
+    
+    a = x3(24:48:end,4);
+    a(end)-a(1)
+    a = y3(24:48:end,4);
+    a(end)-a(1)
+    
+    xdk = figure;
+    plot(x3(24:48:end,5),x3(24:48:end,4),'.')
+    hold on
+    plot(y3(24:48:end,5),y3(24:48:end,4),'.')
+    ylim([20,24])
+    set(gca,'ytick',20:24)
+    xlim([1.6,4.1])
+    xlabel('VPD (kPa)')
+    ylabel('GPP (\mu mol m^{-2} s^{-1})')
+    title('Exp3: midday GPP vs. VPD')
+    legend({'Tall','Short'},'location','Southwest')
+    
+    xdk.Units = 'inches';
+    xdk.Position = [2,2,4,3];
+    xdk.PaperSize = [4,3];
+    xdk.PaperPosition = [0,0,4,3];
+    if rr(5)>1
+    print(xdk,'figs/fig5','-dpdf')
+    end
+end
+
+
+
 if rr(2)>0
     
     kmax  = 4e-3;
@@ -303,7 +376,7 @@ if rr(2)>0
                 dmax  = 60;
                 x=zeros(48*dmax,4);
                 for dd=1:dmax
-                    [out,psoil] = oneday(psoil,param,zr);
+                    [out,psoil] = oneday(psoil,param,zr,1);
                     x((1:48)+48*(dd-1),:)=out;
                 end
                 Amax = mean(x(1:48,4));
@@ -348,7 +421,7 @@ if rr(1)>0
     psoil = -0.2;
     x=[];
     for i=1:60
-        [out,psoil] = oneday(psoil,param,zr);
+        [out,psoil] = oneday(psoil,param,zr,1);
         x = [x;out];
     end
     
